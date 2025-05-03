@@ -1,0 +1,105 @@
+.sign-in-page,
+.sign-up-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f0f2f5;
+}
+
+.sign-in-box,
+.sign-up-box {
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.login-form-button,
+.register-form-button {
+  width: 100%;
+}
+
+.site-form-item-icon {
+  color: rgba(0, 0, 0, 0.25);
+}
+
+.login-form-forgot {
+  float: right;
+}
+
+.layout-content {
+  padding: 24px;
+  min-height: 280px;
+}
+
+.rowgap-vbox {
+  margin-bottom: 24px;
+}
+
+.mb-24 {
+  margin-bottom: 24px;
+}
+
+.criclebox {
+  border-radius: 8px;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.avatar-group {
+  display: flex;
+  gap: 8px;
+}
+
+.tootip-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.avatar-sm {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+}
+
+.mr-10 {
+  margin-right: 10px;
+}
+
+.text-xs {
+  font-size: 12px;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+.percent-progress {
+  width: 100%;
+}
+
+.width-100 {
+  width: 100%;
+}
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+.bnb2 {
+  color: #52c41a;
+}
+
+.redtext {
+  color: #ff4d4f;
+}
+
+.blue {
+  color: #1890ff;
+} 

@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: rangmanch-dashboard-api
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn api_server:app
+    envVars:
+      - key: APIFY_API_TOKEN
+        value: "apify_api_EsvCiOOlJobxaZnJ3Klnyucd5IRdgq4CsoP3"
+      - key: PYTHON_VERSION
+        value: 3.9.10 
