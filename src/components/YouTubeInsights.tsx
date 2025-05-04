@@ -172,6 +172,40 @@ const YouTubeInsights: React.FC<YouTubeInsightsProps> = ({
     return video.publishedAt || video.published_date || video.snippet?.publishedAt || '';
   };
 
+  const getChannelURL = (): string => {
+    // Find a proper channel ID first
+    const channelId = 
+      youtubeDetails[0]?.creator_id || 
+      youtubeDetails[0]?.channel_id || 
+      youtubeDetails[0]?.channel_name;
+    
+    // If we have a valid channel ID that starts with UC (YouTube format)
+    if (channelId && typeof channelId === 'string' && channelId.startsWith('UC')) {
+      return `https://www.youtube.com/channel/${channelId}`;
+    }
+    
+    // Try exact channel name matches for popular channels
+    const channelMap: Record<string, string> = {
+      'adultswim': 'https://www.youtube.com/@adultswim',
+      'adult swim': 'https://www.youtube.com/@adultswim'
+      // Add more channel mappings as needed
+    };
+    
+    if (channelName && channelMap[channelName.toLowerCase()]) {
+      return channelMap[channelName.toLowerCase()];
+    }
+    
+    // If channel name exists but is not in our map, make a best-effort URL
+    // Modern YouTube URLs use the @ format
+    if (channelName) {
+      const formattedName = channelName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase();
+      return `https://www.youtube.com/@${formattedName}`;
+    }
+    
+    // Last resort - just go to YouTube
+    return 'https://www.youtube.com/';
+  };
+
   const filteredVideos = youtubeDetails.filter(video => {
     const title = getVideoTitle(video).toLowerCase();
     return title.includes(searchQuery.toLowerCase());
@@ -239,7 +273,7 @@ const YouTubeInsights: React.FC<YouTubeInsightsProps> = ({
                   color="error" 
                   sx={{ borderRadius: 20 }}
                   component="a"
-                  href={`https://www.youtube.com/channel/${youtubeDetails[0]?.channel_id || ''}`}
+                  href={getChannelURL()}
                   target="_blank"
                 >
                   Visit Channel

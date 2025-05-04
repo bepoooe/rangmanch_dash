@@ -11,7 +11,6 @@ import {
   Divider,
   Paper,
   Switch,
-  FormControlLabel,
   Alert,
   Stack,
   Tabs,

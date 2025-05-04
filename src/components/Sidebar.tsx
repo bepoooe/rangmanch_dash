@@ -5,14 +5,11 @@ import {
   Box,
   useTheme,
   styled,
-  Divider,
   Typography,
   ListItem,
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Tooltip,
-  Button,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
@@ -20,8 +17,6 @@ import {
   BarChart as AnalyticsIcon,
   People as AudienceIcon,
   Person as ProfileIcon,
-  ExitToApp as SignOutIcon,
-  CloudDownload as ScrapeIcon,
 } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
 
@@ -64,13 +59,11 @@ const navigationItems = [
   { text: 'Content Library', icon: <ContentLibraryIcon />, id: 'content-library', path: '/content-library' },
   { text: 'Analytics', icon: <AnalyticsIcon />, id: 'analytics', path: '/analytics' },
   { text: 'Audience Insights', icon: <AudienceIcon />, id: 'audience-insights', path: '/audience-insights' },
-  { text: 'Scrape Data', icon: <ScrapeIcon />, id: 'scrape', path: '/scrape' },
 ];
 
 // User related items
 const userItems = [
   { text: 'Profile', icon: <ProfileIcon />, id: 'profile', path: '/profile' },
-  { text: 'Sign Out', icon: <SignOutIcon />, id: 'sign-out', path: '/login' },
 ];
 
 const Sidebar: React.FC<SidebarProps> = ({

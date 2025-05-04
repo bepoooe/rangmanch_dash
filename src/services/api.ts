@@ -103,7 +103,7 @@ const api = {
       let normalizedPath = filePath.replace(/\\/g, '/');
       
       // Remove any drive letter or absolute path prefix (like C:/)
-      normalizedPath = normalizedPath.replace(/^[A-Z]:[\/\\]/, '');
+      normalizedPath = normalizedPath.replace(/^[A-Z]:[/\\]/, '');
       
       // If it's an absolute path starting with /, remove the leading /
       normalizedPath = normalizedPath.replace(/^\//, '');

@@ -77,7 +77,7 @@ const SignUp: React.FC<SignUpProps> = () => {
           <Form.Item>
             <Form.Item name="agreement" valuePropName="checked" noStyle>
               <Checkbox>
-                I have read the <a href="">agreement</a>
+                I have read the <a href="/terms">agreement</a>
               </Checkbox>
             </Form.Item>
           </Form.Item>
