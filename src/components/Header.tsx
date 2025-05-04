@@ -31,7 +31,7 @@ const Header: React.FC<HeaderProps> = ({ onSidebarToggle }) => {
           top: 0,
           left: 0,
           right: 0,
-          height: '1.1px',
+          height: '2px',
           background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
         },
         '&:after': {
@@ -40,7 +40,7 @@ const Header: React.FC<HeaderProps> = ({ onSidebarToggle }) => {
           bottom: 0,
           left: 0,
           right: 0,
-          height: '1.1px',
+          height: '2px',
           background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)',
         }
       }}
@@ -80,82 +80,121 @@ const Header: React.FC<HeaderProps> = ({ onSidebarToggle }) => {
       <Toolbar 
         sx={{ 
           px: { xs: 2, sm: 3 },
-          minHeight: { xs: '60px', sm: '70px' },
+          minHeight: { xs: '64px', sm: '74px' },
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           position: 'relative',
+          flexDirection: 'column'
         }}
       >
-        {onSidebarToggle && (
-          <IconButton
-            onClick={onSidebarToggle}
-            sx={{
-              mr: 2,
-              display: { sm: 'none' },
-              color: 'white',
-              '&:hover': {
-                transform: 'rotate(180deg)',
-                transition: 'transform 0.3s ease-in-out',
-                background: 'rgba(255,255,255,0.1)',
+        {/* Main header content */}
+        <Box sx={{ 
+          display: 'flex', 
+          width: '100%',
+          alignItems: 'center'
+        }}>
+          {onSidebarToggle && (
+            <IconButton
+              onClick={onSidebarToggle}
+              sx={{
+                mr: 2,
+                display: { sm: 'none' },
+                color: 'white',
+                '&:hover': {
+                  transform: 'rotate(180deg)',
+                  transition: 'transform 0.3s ease-in-out',
+                  background: 'rgba(255,255,255,0.1)',
+                },
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
+          )}
+
+          <Box sx={{ flexGrow: 1 }} />
+
+          <Typography 
+            variant="h4" 
+            component="div" 
+            sx={{ 
+              textAlign: 'center',
+              fontWeight: 'bold',
+              fontFamily: "'Poppins', 'Segoe UI', sans-serif",
+              letterSpacing: '0.5px',
+              fontSize: { xs: '1.9rem', sm: '2.5rem' },
+              background: `linear-gradient(45deg, 
+                #9d4edd,
+                #c77dff,
+                #ff9e00,
+                #ddff00
+              )`,
+              backgroundSize: '300% 300%',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              animation: 'gradient 10s ease infinite',
+              textShadow: '0 0 10px rgba(157, 78, 221, 0.3)',
+              position: 'relative',
+              padding: '0 16px',
+              '&:before': {
+                content: '""',
+                position: 'absolute',
+                left: 0,
+                right: 0,
+                bottom: -4,
+                height: '2px',
+                background: 'linear-gradient(90deg, transparent, rgba(157, 78, 221, 0.5), transparent)',
+                borderRadius: '50%',
               },
+              '@keyframes gradient': {
+                '0%': {
+                  backgroundPosition: '0% 50%'
+                },
+                '50%': {
+                  backgroundPosition: '100% 50%'
+                },
+                '100%': {
+                  backgroundPosition: '0% 50%'
+                }
+              }
             }}
           >
-            <MenuIcon />
-          </IconButton>
-        )}
+            Rangmanch Dashboard
+          </Typography>
 
-        <Box sx={{ flexGrow: 1 }} />
+          <Box sx={{ flexGrow: 1 }} />
+        </Box>
 
-        <Typography 
-          variant="h4" 
-          component="div" 
-          sx={{ 
-            textAlign: 'center',
-            fontWeight: 'bold',
-            fontFamily: "'Poppins', 'Segoe UI', sans-serif",
-            letterSpacing: '0.5px',
-            fontSize: { xs: '1.8rem', sm: '2.2rem' },
-            background: `linear-gradient(45deg, 
-              #9d4edd,
-              #c77dff,
-              #ff9e00,
-              #ddff00
-            )`,
-            backgroundSize: '300% 300%',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            animation: 'gradient 15s ease infinite',
-            textShadow: '0 0 10px rgba(157, 78, 221, 0.3)',
-            position: 'relative',
-            padding: '0 16px',
-            '&:before': {
-              content: '""',
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              bottom: -4,
-              height: '2px',
-              background: 'linear-gradient(90deg, transparent, rgba(157, 78, 221, 0.5), transparent)',
-              borderRadius: '50%',
-            },
-            '@keyframes gradient': {
-              '0%': {
-                backgroundPosition: '0% 50%'
-              },
-              '50%': {
-                backgroundPosition: '100% 50%'
-              },
-              '100%': {
-                backgroundPosition: '0% 50%'
-              }
-            }
+        {/* Scrolling text banner */}
+        <Box
+          sx={{
+            width: '100%',
+            overflow: 'hidden',
+            background: 'rgb(195, 215, 228)',
+            mt: 1,
+            height: '24px',
+            display: 'flex',
+            alignItems: 'center',
+            position: 'relative'
           }}
         >
-          Rangmanch Dashboard
-        </Typography>
-
-        <Box sx={{ flexGrow: 1 }} />
+          <Typography
+            sx={{
+              color: 'rgba(159, 0, 0, 0.87)',
+              whiteSpace: 'nowrap',
+              position: 'absolute',
+              fontWeight: 'bold',
+              left: 0,
+              animation: 'scrollText 20s linear infinite',
+              '@keyframes scrollText': {
+                '0%': { transform: 'translateX(100vw)' },
+                '100%': { transform: 'translateX(-100%)' }
+              }
+            }}
+          >
+            As Web Scraping of Facebook & Linkedin is paid. We couldn't integrate that :)
+          </Typography>
+        </Box>
       </Toolbar>
     </AppBar>
   );

@@ -375,7 +375,13 @@ const YouTubeInsights: React.FC<YouTubeInsightsProps> = (props) => {
         </Box>
       ) : (
         <>
-          <Box sx={{ mb: 3 }}>
+          <Box sx={{ 
+            mb: 3,
+            '@media (max-width: 600px)': {
+              mb: 2,
+              px: 1
+            }
+          }}>
             <FormControl fullWidth>
               <InputLabel id="youtube-channel-select-label">Select YouTube Channel</InputLabel>
               <Select
@@ -394,7 +400,17 @@ const YouTubeInsights: React.FC<YouTubeInsightsProps> = (props) => {
           </Box>
 
           {youtubeDetails.length > 0 ? (
-            <Box sx={{ bgcolor: '#1a1a2e', color: 'white', borderRadius: 1, p: 3, mb: 3 }}>
+            <Box sx={{ 
+              bgcolor: '#1a1a2e', 
+              color: 'white', 
+              borderRadius: 1, 
+              p: 3, 
+              mb: 3,
+              '@media (max-width: 600px)': {
+                p: 2,
+                mb: 2
+              }
+            }}>
               {(youtubeDetails.some(isLikeCountEstimated) || getSubscriberCount() === 'Unknown' || isMissingField('subscriberCount')) && (
                 <Alert 
                   severity="info" 
@@ -416,13 +432,22 @@ const YouTubeInsights: React.FC<YouTubeInsightsProps> = (props) => {
                 </Alert>
               )}
               
-              <Box sx={{ textAlign: 'center', mb: 4 }}>
+              <Box sx={{ 
+                textAlign: 'center', 
+                mb: 4,
+                '@media (max-width: 600px)': {
+                  mb: 2
+                }
+              }}>
                 <Typography 
                   variant="h4" 
                   sx={{ 
                     color: '#ff0000', 
                     fontWeight: 'bold', 
-                    mb: 1 
+                    mb: 1,
+                    '@media (max-width: 600px)': {
+                      fontSize: '1.5rem'
+                    }
                   }}
                 >
                   {channelName}
@@ -454,7 +479,15 @@ const YouTubeInsights: React.FC<YouTubeInsightsProps> = (props) => {
                     `${getSubscriberCount()} subscribers`
                   )}
                 </Typography>
-                <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2 }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'center', 
+                  gap: 2,
+                  '@media (max-width: 600px)': {
+                    flexDirection: 'column',
+                    gap: 1
+                  }
+                }}>
                   <Button 
                     variant="contained" 
                     color="error" 
@@ -477,7 +510,13 @@ const YouTubeInsights: React.FC<YouTubeInsightsProps> = (props) => {
                 </Box>
               </Box>
 
-              <Grid container spacing={2} sx={{ mb: 3 }}>
+              <Grid container spacing={2} sx={{ 
+                mb: 3,
+                '@media (max-width: 600px)': {
+                  mb: 2,
+                  spacing: 1
+                }
+              }}>
                 <Grid item xs={12} md={4}>
                   <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#23233a', borderRadius: 2, border: '1px solid #ff3e3e' }}>
                     <Typography variant="h5" sx={{ color: '#4169e1' }}>
@@ -525,7 +564,12 @@ const YouTubeInsights: React.FC<YouTubeInsightsProps> = (props) => {
                 </Grid>
               </Grid>
 
-              <Box sx={{ mb: 3 }}>
+              <Box sx={{ 
+                mb: 3,
+                '@media (max-width: 600px)': {
+                  mb: 2
+                }
+              }}>
                 <TextField
                   fullWidth
                   placeholder="Search videos..."
@@ -550,7 +594,14 @@ const YouTubeInsights: React.FC<YouTubeInsightsProps> = (props) => {
                 />
               </Box>
 
-              <TableContainer sx={{ borderRadius: 1, bgcolor: '#1a1a2e' }}>
+              <TableContainer sx={{ 
+                borderRadius: 1, 
+                bgcolor: '#1a1a2e',
+                '@media (max-width: 600px)': {
+                  maxWidth: '100%',
+                  overflowX: 'auto'
+                }
+              }}>
                 <Table>
                   <TableHead>
                     <TableRow>
@@ -871,7 +922,13 @@ const InstagramInsights: React.FC<InstagramInsightsProps> = (props) => {
         </Box>
       ) : (
         <>
-          <Box sx={{ mb: 3 }}>
+          <Box sx={{ 
+            mb: 3,
+            '@media (max-width: 600px)': {
+              mb: 2,
+              px: 1
+            }
+          }}>
             <FormControl fullWidth>
               <InputLabel id="instagram-account-select-label">Select Instagram Account</InputLabel>
               <Select
@@ -890,7 +947,17 @@ const InstagramInsights: React.FC<InstagramInsightsProps> = (props) => {
           </Box>
 
           {hasError ? (
-            <Box sx={{ textAlign: 'center', py: 4, bgcolor: '#2b1f3b', p: 3, borderRadius: 2 }}>
+            <Box sx={{ 
+              textAlign: 'center', 
+              py: 4, 
+              bgcolor: '#2b1f3b', 
+              p: 3, 
+              borderRadius: 2,
+              '@media (max-width: 600px)': {
+                py: 2,
+                p: 2
+              }
+            }}>
               <Typography variant="h6" color="error" gutterBottom>
                 Unable to retrieve Instagram data
               </Typography>
@@ -906,14 +973,33 @@ const InstagramInsights: React.FC<InstagramInsightsProps> = (props) => {
               </Button>
             </Box>
           ) : instagramDetails.length > 0 ? (
-            <Box sx={{ bgcolor: '#1a1a2e', color: 'white', borderRadius: 1, p: 3, mb: 3 }}>
-              <Box sx={{ textAlign: 'center', mb: 4 }}>
+            <Box sx={{ 
+              bgcolor: '#1a1a2e', 
+              color: 'white', 
+              borderRadius: 1, 
+              p: 3, 
+              mb: 3,
+              '@media (max-width: 600px)': {
+                p: 2,
+                mb: 2
+              }
+            }}>
+              <Box sx={{ 
+                textAlign: 'center', 
+                mb: 4,
+                '@media (max-width: 600px)': {
+                  mb: 2
+                }
+              }}>
                 <Typography 
                   variant="h4" 
                   sx={{ 
                     color: '#9c27b0', 
                     fontWeight: 'bold', 
-                    mb: 1 
+                    mb: 1,
+                    '@media (max-width: 600px)': {
+                      fontSize: '1.5rem'
+                    }
                   }}
                 >
                   Instagram Data for {username}
@@ -931,7 +1017,13 @@ const InstagramInsights: React.FC<InstagramInsightsProps> = (props) => {
                 </Box>
               </Box>
 
-              <Grid container spacing={2} sx={{ mb: 3 }}>
+              <Grid container spacing={2} sx={{ 
+                mb: 3,
+                '@media (max-width: 600px)': {
+                  mb: 2,
+                  spacing: 1
+                }
+              }}>
                 <Grid item xs={12} md={4}>
                   <Paper sx={{ p: 2, textAlign: 'center', bgcolor: '#2b1f3b', borderRadius: 2, border: '1px solid #8e24aa' }}>
                     <Typography variant="h5" sx={{ color: '#ffa726', fontWeight: 'bold' }}>
@@ -964,14 +1056,29 @@ const InstagramInsights: React.FC<InstagramInsightsProps> = (props) => {
                 </Grid>
               </Grid>
 
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
+              <Box sx={{ 
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'center', 
+                mb: 3,
+                '@media (max-width: 600px)': {
+                  flexDirection: 'column',
+                  gap: 2,
+                  mb: 2
+                }
+              }}>
                 <ToggleButtonGroup
                   value={viewMode}
                   exclusive
                   onChange={handleViewModeChange}
                   aria-label="view mode"
                   size="small"
-                  sx={{ bgcolor: '#2b1f3b' }}
+                  sx={{ 
+                    bgcolor: '#2b1f3b',
+                    '@media (max-width: 600px)': {
+                      width: '100%'
+                    }
+                  }}
                 >
                   <ToggleButton value="table" aria-label="table view" sx={{ color: 'white' }}>
                     <List /> Table View
@@ -981,8 +1088,22 @@ const InstagramInsights: React.FC<InstagramInsightsProps> = (props) => {
                   </ToggleButton>
                 </ToggleButtonGroup>
 
-                <Box sx={{ display: 'flex', gap: 2 }}>
-                  <FormControl sx={{ minWidth: 150, bgcolor: '#2b1f3b' }} size="small">
+                <Box sx={{ 
+                  display: 'flex', 
+                  gap: 2,
+                  '@media (max-width: 600px)': {
+                    width: '100%',
+                    flexDirection: 'column',
+                    gap: 1
+                  }
+                }}>
+                  <FormControl sx={{ 
+                    minWidth: 150, 
+                    bgcolor: '#2b1f3b',
+                    '@media (max-width: 600px)': {
+                      width: '100%'
+                    }
+                  }} size="small">
                     <InputLabel id="post-type-filter-label" sx={{ color: 'white' }}>Content Type</InputLabel>
                     <Select
                       labelId="post-type-filter-label"
@@ -1011,6 +1132,9 @@ const InstagramInsights: React.FC<InstagramInsightsProps> = (props) => {
                       "& .MuiOutlinedInput-root": {
                         "& fieldset": { borderColor: "#3a3a50" },
                         "&:hover fieldset": { borderColor: "#4a4a60" },
+                      },
+                      '@media (max-width: 600px)': {
+                        width: '100%'
                       }
                     }}
                     InputProps={{
@@ -1024,7 +1148,14 @@ const InstagramInsights: React.FC<InstagramInsightsProps> = (props) => {
                 </Box>
               </Box>
 
-              <TableContainer sx={{ borderRadius: 1, bgcolor: '#1a1a2e' }}>
+              <TableContainer sx={{ 
+                borderRadius: 1, 
+                bgcolor: '#1a1a2e',
+                '@media (max-width: 600px)': {
+                  maxWidth: '100%',
+                  overflowX: 'auto'
+                }
+              }}>
                 <Table>
                   <TableHead>
                     <TableRow>
@@ -1322,7 +1453,16 @@ const YouTubeChart: React.FC<YouTubeChartProps> = ({ youtubeDetails }) => {
   };
   
   return (
-    <Box sx={{ bgcolor: '#1a1a2e', p: 2, borderRadius: 2, mt: 3 }}>
+    <Box sx={{ 
+      bgcolor: '#1a1a2e', 
+      p: 2, 
+      borderRadius: 2, 
+      mt: 3,
+      '@media (max-width: 600px)': {
+        mt: 2,
+        p: 1
+      }
+    }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
         <ToggleButtonGroup
           value={chartType}
@@ -1339,10 +1479,16 @@ const YouTubeChart: React.FC<YouTubeChartProps> = ({ youtubeDetails }) => {
         </ToggleButtonGroup>
       </Box>
       <ReactApexChart 
-        options={options}
+        options={{
+          ...options,
+          chart: {
+            ...options.chart,
+            height: window.innerWidth <= 600 ? 250 : 350
+          }
+        }}
         series={series}
         type="bar"
-        height={350}
+        height={window.innerWidth <= 600 ? 250 : 350}
       />
     </Box>
   );
@@ -1519,7 +1665,16 @@ const InstagramChart: React.FC<InstagramChartProps> = ({ instagramDetails }) => 
   }];
   
   return (
-    <Box sx={{ bgcolor: '#1a1a2e', p: 2, borderRadius: 2, mt: 3 }}>
+    <Box sx={{ 
+      bgcolor: '#1a1a2e', 
+      p: 2, 
+      borderRadius: 2, 
+      mt: 3,
+      '@media (max-width: 600px)': {
+        mt: 2,
+        p: 1
+      }
+    }}>
       <Box sx={{ display: 'flex', justifyContent: 'center', mb: 2 }}>
         <ToggleButtonGroup
           value={chartType}
@@ -1537,17 +1692,29 @@ const InstagramChart: React.FC<InstagramChartProps> = ({ instagramDetails }) => 
       </Box>
       {chartType === 'types' ? (
         <ReactApexChart 
-          options={typeOptions}
+          options={{
+            ...typeOptions,
+            chart: {
+              ...typeOptions.chart,
+              height: window.innerWidth <= 600 ? 250 : 350
+            }
+          }}
           series={typeSeries}
           type="pie"
-          height={350}
+          height={window.innerWidth <= 600 ? 250 : 350}
         />
       ) : (
         <ReactApexChart 
-          options={engagementOptions}
+          options={{
+            ...engagementOptions,
+            chart: {
+              ...engagementOptions.chart,
+              height: window.innerWidth <= 600 ? 250 : 350
+            }
+          }}
           series={engagementSeries}
           type="bar"
-          height={350}
+          height={window.innerWidth <= 600 ? 250 : 350}
         />
       )}
     </Box>
@@ -1689,7 +1856,15 @@ const AudienceInsights: React.FC = () => {
   }, [fetchDataList]);  // Add fetchDataList as a dependency
 
   return (
-    <Box sx={{ height: '100%', bgcolor: 'background.paper', borderRadius: 1, overflow: 'hidden' }}>
+    <Box sx={{ 
+      height: '100%', 
+      bgcolor: 'background.paper', 
+      borderRadius: 1, 
+      overflow: 'hidden',
+      '@media (max-width: 600px)': {
+        borderRadius: 0
+      }
+    }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs 
           value={tabValue} 
@@ -1747,4 +1922,4 @@ const AudienceInsights: React.FC = () => {
   );
 };
 
-export default AudienceInsights; 
+export default AudienceInsights;

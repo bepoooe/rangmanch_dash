@@ -129,6 +129,7 @@ const DashboardLayout: React.FC<DashboardLayoutProps> = ({ children }) => {
             border: '1px solid rgba(255, 255, 255, 0.1)',
             boxShadow: '0 4px 24px 0 rgba(0, 0, 0, 0.2)',
             p: { xs: 1.5, sm: 2, md: 3 },
+            mt: 3, // Added top margin
             flex: 1,
             overflow: 'hidden',
             transition: 'transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out',
