@@ -1,52 +1,39 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   AppBar,
-  Avatar,
   Box,
   IconButton,
   Toolbar,
-  Menu,
-  MenuItem,
   Typography,
-  styled,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
-  Person as PersonIcon,
 } from '@mui/icons-material';
-
-// Styled anchor component
-const StyledAnchor = styled('a')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  width: '100%',
-  textDecoration: 'none',
-  color: 'inherit',
-}));
 
 interface HeaderProps {
   onSidebarToggle?: () => void;
 }
 
 const Header: React.FC<HeaderProps> = ({ onSidebarToggle }) => {
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-
-  const handleProfileClick = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
   return (
     <AppBar 
       position="fixed" 
       sx={{ 
         zIndex: (theme) => theme.zIndex.drawer + 1,
+        background: 'linear-gradient(90deg, rgba(33,33,46,1) 0%, rgba(15,23,42,1) 100%)',
+        backdropFilter: 'blur(10px)',
+        borderBottom: '1px solid rgba(255,255,255,0.05)',
       }}
     >
-      <Toolbar sx={{ px: { xs: 1, sm: 2 } }}>
+      <Toolbar 
+        sx={{ 
+          px: { xs: 2, sm: 3 },
+          minHeight: { xs: '60px', sm: '70px' },
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
         {onSidebarToggle && (
           <IconButton
             onClick={onSidebarToggle}
@@ -64,13 +51,14 @@ const Header: React.FC<HeaderProps> = ({ onSidebarToggle }) => {
           </IconButton>
         )}
 
+        <Box sx={{ flexGrow: 1 }} />
+
         <Typography 
           variant="h4" 
           component="div" 
           sx={{ 
-            display: { xs: 'none', sm: 'block' },
+            textAlign: 'center',
             fontWeight: 'bold',
-            mr: 2,
             fontSize: { xs: '1.8rem', sm: '2.2rem' },
             background: `linear-gradient(45deg, 
               #9d4edd,
@@ -99,71 +87,6 @@ const Header: React.FC<HeaderProps> = ({ onSidebarToggle }) => {
         </Typography>
 
         <Box sx={{ flexGrow: 1 }} />
-
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <IconButton 
-            onClick={handleProfileClick}
-            sx={{
-              p: 0,
-              background: 'rgba(255, 255, 255, 0.05)',
-              backdropFilter: 'blur(10px)',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-              }
-            }}
-          >
-            <Avatar
-              sx={{
-                width: { xs: 32, sm: 40 },
-                height: { xs: 32, sm: 40 },
-                background: 'linear-gradient(45deg, #9d4edd, #c77dff)',
-                cursor: 'pointer',
-              }}
-            >
-              A
-            </Avatar>
-          </IconButton>
-        </Box>
-
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          PaperProps={{
-            elevation: 0,
-            sx: {
-              background: 'rgba(15, 39, 68, 0.8)',
-              backdropFilter: 'blur(10px)',
-              border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: 2,
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-              mt: 1.5,
-              '&:before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: 'rgba(15, 39, 68, 0.8)',
-                transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
-            },
-          }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
-          <MenuItem>
-            <StyledAnchor href="/#/profile" onClick={handleClose}>
-              <PersonIcon fontSize="small" sx={{ mr: 1 }} />
-              Profile
-            </StyledAnchor>
-          </MenuItem>
-        </Menu>
       </Toolbar>
     </AppBar>
   );
