@@ -1387,16 +1387,24 @@ const SocialDataVisualizer: React.FC = () => {
   };
 
   return (
-    <Card sx={{ height: '100%', bgcolor: theme.palette.background.paper }}>
-      <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
+    <Card sx={{ 
+      height: '100%', 
+      bgcolor: theme.palette.background.paper,
+      overflowX: 'hidden' // Prevent horizontal scrolling on mobile
+    }}>
+      <CardContent sx={{ 
+        p: { xs: 1, sm: 2, md: 3 }, // Responsive padding
+        '&:last-child': { pb: { xs: 1, sm: 2, md: 3 } } // Fix padding bottom
+      }}>
         <Box sx={{ 
           display: 'flex', 
           justifyContent: 'space-between', 
           alignItems: 'center',
-          flexWrap: 'wrap',
-          mb: 2
+          flexDirection: { xs: 'column', sm: 'row' }, // Stack vertically on mobile
+          gap: { xs: 2, sm: 0 }, // Add gap between elements when stacked
+          mb: { xs: 2, sm: 3 }
         }}>
-          <Typography variant="h6">
+          <Typography variant="h6" sx={{ fontSize: { xs: '1.1rem', sm: '1.25rem' } }}>
             Social Media Data Visualization
           </Typography>
           <Button 
@@ -1405,41 +1413,61 @@ const SocialDataVisualizer: React.FC = () => {
             disabled={loading}
             size="small"
             variant="outlined"
+            sx={{ width: { xs: '100%', sm: 'auto' } }} // Full width on mobile
           >
             Refresh
           </Button>
         </Box>
         
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
+        <Typography 
+          variant="body2" 
+          color="text.secondary" 
+          sx={{ 
+            mb: { xs: 2, sm: 3 },
+            textAlign: { xs: 'center', sm: 'left' } 
+          }}
+        >
           Visualize your scraped social media data with interactive charts
         </Typography>
 
-        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+        <Box sx={{ 
+          borderBottom: 1, 
+          borderColor: 'divider',
+          mb: { xs: 2, sm: 3 }
+        }}>
           <Tabs 
             value={tabValue} 
             onChange={handleTabChange} 
             aria-label="visualization tabs"
             variant="fullWidth"
+            sx={{
+              minHeight: { xs: 48, sm: 60 }, // Smaller height on mobile
+              '& .MuiTab-root': {
+                minHeight: { xs: 48, sm: 60 },
+                fontSize: { xs: '0.8rem', sm: '0.9rem' },
+                padding: { xs: 1, sm: 2 }
+              }
+            }}
           >
             <Tab 
               label="YouTube Data" 
-              icon={<YouTube />} 
+              icon={<YouTube sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />} 
               iconPosition="start"
               sx={{ 
-                minHeight: 60,
+                minHeight: { xs: 48, sm: 60 },
                 textTransform: 'none',
-                fontSize: '0.9rem',
+                fontSize: { xs: '0.8rem', sm: '0.9rem' },
                 fontWeight: 500
               }}
             />
             <Tab 
               label="Instagram Data" 
-              icon={<Instagram />} 
+              icon={<Instagram sx={{ fontSize: { xs: '1.2rem', sm: '1.5rem' } }} />} 
               iconPosition="start"
               sx={{ 
-                minHeight: 60,
+                minHeight: { xs: 48, sm: 60 },
                 textTransform: 'none',
-                fontSize: '0.9rem',
+                fontSize: { xs: '0.8rem', sm: '0.9rem' },
                 fontWeight: 500
               }}
             />
@@ -1447,7 +1475,7 @@ const SocialDataVisualizer: React.FC = () => {
         </Box>
 
         {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', p: 5 }}>
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', p: { xs: 3, sm: 5 } }}>
             <CircularProgress sx={{ mb: 2 }} />
             <Typography color="text.secondary">Loading data...</Typography>
           </Box>
@@ -1455,22 +1483,25 @@ const SocialDataVisualizer: React.FC = () => {
           <>
             <TabPanel value={tabValue} index={0}>
               {youtubeData.length === 0 ? (
-                <Box sx={{ p: 4, textAlign: 'center' }}>
-                  <Typography variant="h6" color="text.secondary" gutterBottom>No YouTube data available</Typography>
-                  <Typography color="text.secondary" sx={{ mb: 3 }}>
+                <Box sx={{ p: { xs: 2, sm: 4 }, textAlign: 'center' }}>
+                  <Typography variant="h6" color="text.secondary" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }} gutterBottom>
+                    No YouTube data available
+                  </Typography>
+                  <Typography color="text.secondary" sx={{ mb: 3, fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                     Please scrape some data using the YouTube scraper first.
                   </Typography>
                   <Button 
                     variant="outlined" 
                     color="primary"
                     onClick={() => window.location.href = '/scrape'}
+                    sx={{ width: { xs: '100%', sm: 'auto' } }}
                   >
                     Go to Scraper
                   </Button>
                 </Box>
               ) : (
                 <>
-                  <FormControl fullWidth sx={{ mb: 3 }}>
+                  <FormControl fullWidth sx={{ mb: { xs: 2, sm: 3 } }}>
                     <InputLabel id="youtube-data-select-label">Select YouTube Data</InputLabel>
                     <Select
                       labelId="youtube-data-select-label"
@@ -1478,9 +1509,14 @@ const SocialDataVisualizer: React.FC = () => {
                       value={selectedYoutubeData}
                       label="Select YouTube Data"
                       onChange={handleYoutubeDataChange}
+                      sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
                     >
                       {youtubeData.map((data, index) => (
-                        <MenuItem key={index} value={data.file_path}>
+                        <MenuItem 
+                          key={index} 
+                          value={data.file_path}
+                          sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
+                        >
                           {data.display_name}
                         </MenuItem>
                       ))}
@@ -1488,12 +1524,17 @@ const SocialDataVisualizer: React.FC = () => {
                   </FormControl>
 
                   {youtubeDetails.length > 0 ? (
-                    <Grid container spacing={3}>
+                    <Grid container spacing={{ xs: 2, sm: 3 }}>
                       <Grid item xs={12} md={6}>
-                        <Typography variant="subtitle1" gutterBottom>
+                        <Typography variant="subtitle1" gutterBottom sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                           {youtubeData.find(d => d.file_path === selectedYoutubeData)?.display_name || 'YouTube'} - Videos by Views
                         </Typography>
-                        <Box sx={{ height: 350, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Box sx={{ 
+                          height: { xs: 250, sm: 350 }, // Smaller height on mobile
+                          display: 'flex', 
+                          justifyContent: 'center', 
+                          alignItems: 'center'
+                        }}>
                           {prepareYoutubeViewsData().datasets[0]?.data.length > 0 ? (
                             <Bar 
                               data={prepareYoutubeViewsData()} 
@@ -1505,10 +1546,15 @@ const SocialDataVisualizer: React.FC = () => {
                         </Box>
                       </Grid>
                       <Grid item xs={12} md={6}>
-                        <Typography variant="subtitle1" gutterBottom>
+                        <Typography variant="subtitle1" gutterBottom sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                           {youtubeData.find(d => d.file_path === selectedYoutubeData)?.display_name || 'YouTube'} - Videos by Likes
                         </Typography>
-                        <Box sx={{ height: 350, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Box sx={{ 
+                          height: { xs: 250, sm: 350 }, // Smaller height on mobile
+                          display: 'flex', 
+                          justifyContent: 'center', 
+                          alignItems: 'center'
+                        }}>
                           {prepareYoutubeLikesData().datasets[0]?.data.length > 0 ? (
                             <Bar 
                               data={prepareYoutubeLikesData()} 
@@ -1520,10 +1566,15 @@ const SocialDataVisualizer: React.FC = () => {
                         </Box>
                       </Grid>
                       <Grid item xs={12}>
-                        <Typography variant="subtitle1" gutterBottom>
+                        <Typography variant="subtitle1" gutterBottom sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                           {youtubeData.find(d => d.file_path === selectedYoutubeData)?.display_name || 'YouTube'} - Upload Timeline
                         </Typography>
-                        <Box sx={{ height: 300, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <Box sx={{ 
+                          height: { xs: 250, sm: 300 }, // Smaller height on mobile
+                          display: 'flex', 
+                          justifyContent: 'center', 
+                          alignItems: 'center'
+                        }}>
                           {prepareYoutubeTimelineData().datasets[0]?.data.length > 0 ? (
                             <Line 
                               data={prepareYoutubeTimelineData()} 
@@ -1536,14 +1587,14 @@ const SocialDataVisualizer: React.FC = () => {
                       </Grid>
                     </Grid>
                   ) : (
-                    <Box sx={{ p: 4, textAlign: 'center' }}>
-                      <Typography color="text.secondary">
+                    <Box sx={{ p: { xs: 2, sm: 4 }, textAlign: 'center' }}>
+                      <Typography color="text.secondary" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                         Select a dataset to visualize or refresh the data.
                       </Typography>
                       <Button 
                         variant="outlined" 
                         color="primary" 
-                        sx={{ mt: 2 }} 
+                        sx={{ mt: 2, width: { xs: '100%', sm: 'auto' } }} 
                         onClick={fetchDataList}
                       >
                         Refresh Data
@@ -1556,22 +1607,25 @@ const SocialDataVisualizer: React.FC = () => {
 
             <TabPanel value={tabValue} index={1}>
               {instagramData.length === 0 ? (
-                <Box sx={{ p: 4, textAlign: 'center' }}>
-                  <Typography variant="h6" color="text.secondary" gutterBottom>No Instagram data available</Typography>
-                  <Typography color="text.secondary" sx={{ mb: 3 }}>
+                <Box sx={{ p: { xs: 2, sm: 4 }, textAlign: 'center' }}>
+                  <Typography variant="h6" color="text.secondary" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }} gutterBottom>
+                    No Instagram data available
+                  </Typography>
+                  <Typography color="text.secondary" sx={{ mb: 3, fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                     Please scrape some data using the Instagram scraper first.
                   </Typography>
                   <Button 
                     variant="outlined" 
                     color="primary"
                     onClick={() => window.location.href = '/scrape'}
+                    sx={{ width: { xs: '100%', sm: 'auto' } }}
                   >
                     Go to Scraper
                   </Button>
                 </Box>
               ) : (
                 <>
-                  <FormControl fullWidth sx={{ mb: 3 }}>
+                  <FormControl fullWidth sx={{ mb: { xs: 2, sm: 3 } }}>
                     <InputLabel id="instagram-data-select-label">Select Instagram Data</InputLabel>
                     <Select
                       labelId="instagram-data-select-label"
@@ -1579,9 +1633,14 @@ const SocialDataVisualizer: React.FC = () => {
                       value={selectedInstagramData}
                       label="Select Instagram Data"
                       onChange={handleInstagramDataChange}
+                      sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
                     >
                       {instagramData.map((data, index) => (
-                        <MenuItem key={index} value={data.file_path}>
+                        <MenuItem 
+                          key={index} 
+                          value={data.file_path}
+                          sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}
+                        >
                           {data.display_name}
                         </MenuItem>
                       ))}
@@ -1592,31 +1651,37 @@ const SocialDataVisualizer: React.FC = () => {
                     <>
                       {/* Check for error condition */}
                       {instagramDetails[0]?.error || instagramDetails[0]?.errorDescription ? (
-                        <Box sx={{ p: 4, textAlign: 'center' }}>
-                          <Typography variant="h6" color="error" gutterBottom>
+                        <Box sx={{ p: { xs: 2, sm: 4 }, textAlign: 'center' }}>
+                          <Typography variant="h6" color="error" sx={{ fontSize: { xs: '1rem', sm: '1.25rem' } }} gutterBottom>
                             Error retrieving Instagram data
                           </Typography>
-                          <Typography color="text.secondary" sx={{ mb: 2 }}>
+                          <Typography color="text.secondary" sx={{ mb: 2, fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                             {instagramDetails[0]?.errorDescription || instagramDetails[0]?.error || 'Unknown error'}
                           </Typography>
-                          <Typography color="text.secondary" sx={{ mb: 3 }}>
+                          <Typography color="text.secondary" sx={{ mb: 3, fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                             This could be due to the account being private, deleted, or a temporary issue with Instagram.
                           </Typography>
                           <Button 
                             variant="outlined" 
                             color="primary"
                             onClick={() => window.location.href = '/scrape'}
+                            sx={{ width: { xs: '100%', sm: 'auto' } }}
                           >
                             Try scraping again
                           </Button>
                         </Box>
                       ) : (
-                        <Grid container spacing={3}>
+                        <Grid container spacing={{ xs: 2, sm: 3 }}>
                           <Grid item xs={12} md={6}>
-                            <Typography variant="subtitle1" gutterBottom>
+                            <Typography variant="subtitle1" gutterBottom sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                               Top Posts by Likes
                             </Typography>
-                            <Box sx={{ height: 350, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Box sx={{ 
+                              height: { xs: 250, sm: 350 }, // Smaller height on mobile
+                              display: 'flex', 
+                              justifyContent: 'center', 
+                              alignItems: 'center'
+                            }}>
                               {prepareInstagramLikesData().datasets[0]?.data.some(val => val > 0) ? (
                                 <Bar 
                                   data={prepareInstagramLikesData()} 
@@ -1628,10 +1693,15 @@ const SocialDataVisualizer: React.FC = () => {
                             </Box>
                           </Grid>
                           <Grid item xs={12} md={6}>
-                            <Typography variant="subtitle1" gutterBottom>
+                            <Typography variant="subtitle1" gutterBottom sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                               Top Posts by Comments
                             </Typography>
-                            <Box sx={{ height: 350, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Box sx={{ 
+                              height: { xs: 250, sm: 350 }, // Smaller height on mobile
+                              display: 'flex', 
+                              justifyContent: 'center', 
+                              alignItems: 'center'
+                            }}>
                               {prepareInstagramCommentsData().datasets[0]?.data.some(val => val > 0) ? (
                                 <Bar 
                                   data={prepareInstagramCommentsData()} 
@@ -1643,10 +1713,15 @@ const SocialDataVisualizer: React.FC = () => {
                             </Box>
                           </Grid>
                           <Grid item xs={12} md={6} sx={{ margin: '0 auto' }}>
-                            <Typography variant="subtitle1" gutterBottom align="center">
+                            <Typography variant="subtitle1" gutterBottom align="center" sx={{ fontSize: { xs: '0.9rem', sm: '1rem' } }}>
                               Content Type Distribution
                             </Typography>
-                            <Box sx={{ height: 300, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                            <Box sx={{ 
+                              height: { xs: 250, sm: 300 }, // Smaller height on mobile
+                              display: 'flex', 
+                              justifyContent: 'center', 
+                              alignItems: 'center'
+                            }}>
                               {prepareInstagramContentTypeData().labels.length > 1 || 
                                (prepareInstagramContentTypeData().labels.length === 1 && 
                                 prepareInstagramContentTypeData().labels[0] !== 'Not Available') ? (
@@ -1663,14 +1738,14 @@ const SocialDataVisualizer: React.FC = () => {
                       )}
                     </>
                   ) : (
-                    <Box sx={{ p: 4, textAlign: 'center' }}>
-                      <Typography color="text.secondary">
+                    <Box sx={{ p: { xs: 2, sm: 4 }, textAlign: 'center' }}>
+                      <Typography color="text.secondary" sx={{ fontSize: { xs: '0.875rem', sm: '1rem' } }}>
                         Select a dataset to visualize or refresh the data.
                       </Typography>
                       <Button 
                         variant="outlined" 
                         color="primary" 
-                        sx={{ mt: 2 }} 
+                        sx={{ mt: 2, width: { xs: '100%', sm: 'auto' } }} 
                         onClick={fetchDataList}
                       >
                         Refresh Data
@@ -1687,4 +1762,4 @@ const SocialDataVisualizer: React.FC = () => {
   );
 };
 
-export default SocialDataVisualizer; 
+export default SocialDataVisualizer;

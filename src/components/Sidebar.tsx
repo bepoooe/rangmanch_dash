@@ -10,6 +10,8 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Divider,
+  Avatar,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
@@ -17,6 +19,7 @@ import {
   BarChart as AnalyticsIcon,
   People as AudienceIcon,
   Person as ProfileIcon,
+  Home as HomeIcon,
 } from '@mui/icons-material';
 import { useHistory } from 'react-router-dom';
 
@@ -37,24 +40,31 @@ const StyledDrawer = styled(Drawer)(({ theme }) => ({
   '& .MuiDrawer-paper': {
     width: drawerWidth,
     boxSizing: 'border-box',
-    background: 'rgba(15, 39, 68, 0.7)',
-    backdropFilter: 'blur(20px)',
-    borderRight: '1px solid rgba(255, 255, 255, 0.1)',
-    boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+    background: theme.palette.mode === 'dark' ? '#1a2035' : '#ffffff',
+    borderRight: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
+    boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px 0 rgba(0, 0, 0, 0.2)' : '0 8px 24px 0 rgba(0, 0, 0, 0.05)',
   },
 }));
 
 const LogoWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'center',
   padding: theme.spacing(3),
-  background: 'linear-gradient(135deg, rgba(157, 78, 221, 0.1) 0%, rgba(157, 78, 221, 0) 100%)',
-  backdropFilter: 'blur(10px)',
-  borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+  background: theme.palette.mode === 'dark' ? 'rgba(66, 66, 66, 0.1)' : 'rgba(245, 245, 245, 0.5)',
+  borderBottom: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
+}));
+
+const UserProfileSection = styled(Box)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(2),
+  borderTop: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
 }));
 
 // Main navigation items
 const navigationItems = [
+  { text: 'Home', icon: <HomeIcon />, id: 'home', path: 'https://rangmanch.vercel.app' },
   { text: 'Dashboard', icon: <DashboardIcon />, id: 'dashboard', path: '/' },
   { text: 'Content Library', icon: <ContentLibraryIcon />, id: 'content-library', path: '/content-library' },
   { text: 'Analytics', icon: <AnalyticsIcon />, id: 'analytics', path: '/analytics' },
@@ -76,8 +86,22 @@ const Sidebar: React.FC<SidebarProps> = ({
   const theme = useTheme();
   const history = useHistory();
 
+  const handleNavItemClick = (item: { text: string; id: string; path: string }) => {
+    onSectionChange(item.id);
+    
+    // Handle external link for Home
+    if (item.path.startsWith('http')) {
+      window.location.href = item.path;
+    } else {
+      history.push(item.path);
+    }
+    
+    if (isMobile) onClose();
+  };
+
   const renderNavItem = (item: { text: string; icon: React.ReactNode; id: string; path: string }) => {
     const active = currentSection === item.id;
+    const isExternal = item.path.startsWith('http');
 
     return (
       <ListItem 
@@ -86,27 +110,23 @@ const Sidebar: React.FC<SidebarProps> = ({
         sx={{ 
           mb: 0.5,
           position: 'relative',
-          overflow: 'hidden',
         }}
       >
         <ListItemButton
-          onClick={() => {
-            onSectionChange(item.id);
-            history.push(item.path);
-            if (isMobile) onClose();
-          }}
+          onClick={() => handleNavItemClick(item)}
           sx={{
             minHeight: 48,
             px: 2.5,
-            py: 1.5,
-            borderRadius: 2,
-            transition: 'all 0.3s ease-in-out',
-            background: active ? 'rgba(157, 78, 221, 0.1)' : 'transparent',
+            py: 1,
+            borderRadius: 1,
+            transition: 'all 0.2s ease',
+            background: active ? 
+              theme.palette.mode === 'dark' ? 'rgba(67, 83, 192, 0.1)' : 'rgba(67, 83, 192, 0.08)' : 
+              'transparent',
             '&:hover': {
-              background: active 
-                ? 'rgba(157, 78, 221, 0.2)' 
-                : 'rgba(255, 255, 255, 0.05)',
-              transform: 'translateX(5px)',
+              background: active ? 
+                theme.palette.mode === 'dark' ? 'rgba(67, 83, 192, 0.2)' : 'rgba(67, 83, 192, 0.15)' : 
+                theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.04)',
             },
           }}
         >
@@ -114,7 +134,6 @@ const Sidebar: React.FC<SidebarProps> = ({
             sx={{
               minWidth: 40,
               color: active ? theme.palette.primary.main : theme.palette.text.secondary,
-              transition: 'color 0.3s ease-in-out',
             }}
           >
             {item.icon}
@@ -123,9 +142,9 @@ const Sidebar: React.FC<SidebarProps> = ({
             primary={item.text}
             sx={{
               '& .MuiTypography-root': {
-                fontWeight: active ? 600 : 400,
+                fontWeight: active ? 600 : 500,
+                fontSize: '0.9rem',
                 color: active ? theme.palette.primary.main : theme.palette.text.primary,
-                transition: 'color 0.3s ease-in-out',
               },
             }}
           />
@@ -136,8 +155,8 @@ const Sidebar: React.FC<SidebarProps> = ({
                 left: 0,
                 top: '50%',
                 transform: 'translateY(-50%)',
-                width: 3,
-                height: '30%',
+                width: 4,
+                height: '60%',
                 bgcolor: theme.palette.primary.main,
                 borderRadius: '0 4px 4px 0',
               }}
@@ -159,7 +178,7 @@ const Sidebar: React.FC<SidebarProps> = ({
           variant="h5" 
           sx={{ 
             fontWeight: 700,
-            background: 'linear-gradient(45deg, #9d4edd, #c77dff)',
+            background: 'linear-gradient(45deg, #4353c0, #7986cb)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             letterSpacing: 1,
@@ -169,21 +188,7 @@ const Sidebar: React.FC<SidebarProps> = ({
         </Typography>
       </LogoWrapper>
 
-      <Box sx={{ p: 2, mb: 2 }}>
-        <Typography 
-          variant="subtitle2"
-          sx={{ 
-            color: theme.palette.text.secondary,
-            textTransform: 'uppercase',
-            letterSpacing: '0.1em',
-            fontSize: '0.75rem',
-            fontWeight: 500,
-            ml: 2,
-            mb: 1,
-          }}
-        >
-          Main Menu
-        </Typography>
+      <Box sx={{ p: 2, mb: 2, mt: 1 }}>
         <List sx={{ p: 0 }}>
           {navigationItems.map(renderNavItem)}
         </List>
@@ -191,27 +196,38 @@ const Sidebar: React.FC<SidebarProps> = ({
 
       <Box sx={{ flexGrow: 1 }} />
 
+      <Divider sx={{ 
+        opacity: 0.6,
+        mx: 2,
+        my: 1,
+      }} />
+
       <Box sx={{ p: 2 }}>
-        <Typography 
-          variant="subtitle2"
-          sx={{ 
-            color: theme.palette.text.secondary,
-            textTransform: 'uppercase',
-            letterSpacing: '0.1em',
-            fontSize: '0.75rem',
-            fontWeight: 500,
-            ml: 2,
-            mb: 1,
-          }}
-        >
-          User
-        </Typography>
         <List sx={{ p: 0 }}>
           {userItems.map(renderNavItem)}
         </List>
       </Box>
 
-      
+      <UserProfileSection>
+        <Avatar
+          sx={{ 
+            width: 40, 
+            height: 40,
+            bgcolor: theme.palette.primary.main,
+            boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
+          }}
+        >
+          U
+        </Avatar>
+        <Box sx={{ ml: 2 }}>
+          <Typography variant="subtitle2" sx={{ fontWeight: 600 }}>
+            User Name
+          </Typography>
+          <Typography variant="caption" color="text.secondary">
+            user@example.com
+          </Typography>
+        </Box>
+      </UserProfileSection>
     </Box>
   );
 
@@ -226,10 +242,9 @@ const Sidebar: React.FC<SidebarProps> = ({
       PaperProps={{
         sx: {
           width: drawerWidth,
-          background: 'rgba(15, 39, 68, 0.7)',
-          backdropFilter: 'blur(20px)',
-          borderRight: '1px solid rgba(255, 255, 255, 0.1)',
-          boxShadow: '0 8px 32px 0 rgba(0, 0, 0, 0.37)',
+          background: theme.palette.mode === 'dark' ? '#1a2035' : '#ffffff',
+          borderRight: `1px solid ${theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)'}`,
+          boxShadow: theme.palette.mode === 'dark' ? '0 8px 24px 0 rgba(0, 0, 0, 0.2)' : '0 8px 24px 0 rgba(0, 0, 0, 0.05)',
         },
       }}
     >

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { ThemeProvider, CssBaseline } from '@mui/material';
 import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import theme from './theme';
@@ -14,16 +14,28 @@ import SignIn from './pages/SignIn';
 import SignUp from './pages/SignUp';
 import Settings from './pages/Settings';
 import SocialDataScraper from './components/SocialDataScraper';
+import Loader from './components/Loader';
 
 const App: React.FC = () => {
+  const [loading, setLoading] = useState(true);
   // For demo purposes, we'll check if user is logged in
   const isLoggedIn = true; // In a real app, this would come from authentication state
+
+  useEffect(() => {
+    // Hide loader after 1.5 seconds
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   console.log('App rendering with routes');
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      {loading && <Loader />}
       <Router>
         <Switch>
           <Route path="/login">
@@ -90,4 +102,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App; 
+export default App;
